@@ -171,8 +171,24 @@ a {
   text-decoration: none;
   display: block;
 }
+.commonTitle {
+  color: #009ee0;
+  font-size: 80px;
+  line-height: 0.8;
+  font-weight: bold;
+  letter-spacing: -5px;
+}
+.commonText {
+  font-size: 15px;
+  line-height: 1.5;
+  color: white;
+}
+#wrap {
+  background: gray;
+}
 #wrap #head {
   background: white !important;
+  width: 100%;
 }
 #wrap #head .headMain {
   margin: 0 auto;
@@ -214,22 +230,191 @@ a {
   left: 50%;
   bottom: -11px;
   transition: 1s left;
+  z-index: 2;
 }
 #wrap #content {
-  background: red;
-  height: 30px;
+  overflow: hidden;
+  width: 100%;
 }
-#wrap #content .list li {
+#wrap #content li {
   position: relative;
+  background-position: 50% 50% !important;
 }
-#wrap #content .list li div {
+#wrap #content li > section {
   height: 520px;
   width: 1100px;
-  background: gray;
   position: absolute;
   margin: auto;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+}
+#wrap #content .list {
+  position: relative;
+  width: 100%;
+  left: 0;
+  top: 0;
+  transition: 1s top;
+}
+#wrap #content .list .home {
+  background: url("../img/bg1.jpg") no-repeat;
+}
+#wrap #content .list .course {
+  background: url("../img/bg2.jpg") no-repeat;
+}
+#wrap #content .list .course .two .title {
+  margin: 50px;
+}
+#wrap #content .list .course .two .text {
+  width: 400px;
+  margin-left: 50px;
+}
+#wrap #content .list .course .two .bottomRight {
+  width: 480px;
+  position: absolute;
+  right: 50px;
+  top: 70px;
+}
+#wrap #content .list .course .two .bottomRight .line {
+  background: url("../img/plus_row.png") no-repeat;
+  width: 9px;
+  height: 410px;
+  position: absolute;
+  top: -7px;
+}
+#wrap #content .list .course .two .bottomRight > .line:nth-child(1) {
+  left: -5px;
+}
+#wrap #content .list .course .two .bottomRight > .line:nth-child(2) {
+  left: 115px;
+}
+#wrap #content .list .course .two .bottomRight > .line:nth-child(3) {
+  left: 235px;
+}
+#wrap #content .list .course .two .bottomRight > .line:nth-child(4) {
+  left: 355px;
+}
+#wrap #content .list .course .two .bottomRight > .line:nth-child(5) {
+  left: 475px;
+}
+#wrap #content .list .course .two .bottomRight .item {
+  width: 120px;
+  height: 132px;
+  float: left;
+  position: relative;
+  perspective: 500px;
+  transform-style: preserve-3d;
+}
+#wrap #content .list .course .two .bottomRight .item .face,
+#wrap #content .list .course .two .bottomRight .item .backFace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  transition: 1s transform;
+}
+#wrap #content .list .course .two .bottomRight .item .face {
+  background: url("../img/apcoa.png") no-repeat;
+  background-position: 50% 50%;
+}
+#wrap #content .list .course .two .bottomRight .item .backFace {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  background: #009ee0;
+  color: white;
+}
+#wrap #content .list .course .two .bottomRight .item:hover .backFace {
+  transform: rotateY(360deg);
+}
+#wrap #content .list .course .two .bottomRight .item:hover .face {
+  transform: rotateY(180deg);
+}
+#wrap #content .list .works {
+  background: url("../img/bg3.jpg") no-repeat;
+}
+#wrap #content .list .works .three {
+  width: 100%;
+  height: 100%;
+}
+#wrap #content .list .works .three .title {
+  margin: 50px 0 100px 50px;
+}
+#wrap #content .list .works .three .bottomDown {
+  margin-left: 50px;
+}
+#wrap #content .list .works .three .bottomDown > .item:last-child {
+  width: 332px;
+}
+#wrap #content .list .works .three .bottomDown > .item:hover .mark {
+  opacity: .8;
+}
+#wrap #content .list .works .three .bottomDown > .item:hover > img {
+  transform: rotate(30deg) scale(1.5);
+}
+#wrap #content .list .works .three .bottomDown > .item {
+  float: left;
+  margin: 0 1px;
+  width: 230px;
+  height: 133px;
+  position: relative;
+  overflow: hidden;
+}
+#wrap #content .list .works .three .bottomDown > .item > img {
+  transition: 1s transform;
+}
+#wrap #content .list .works .three .bottomDown > .item .mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 10px;
+  opacity: 0;
+  background: black;
+  color: white;
+  transition: 1s opacity;
+}
+#wrap #content .list .works .three .bottomDown > .item .mark .icon {
+  width: 32px;
+  height: 34px;
+  margin: 10px auto;
+  background: url(../img/zoomico.png) no-repeat;
+  transition: 1s background-position;
+}
+#wrap #content .list .works .three .bottomDown > .item .mark .icon:hover {
+  background-position: 0 -36px;
+}
+#wrap #content .list .works .three .robot {
+  background: url("../img/robot.png") no-repeat;
+  position: absolute;
+  left: 900px;
+  top: 170px;
+  width: 167px;
+  height: 191px;
+  animation: works3Move 4s linear infinite;
+}
+#wrap #content .list .about {
+  background: url("../img/bg4.jpg") no-repeat;
+}
+#wrap #content .list .team {
+  background: url("../img/bg5.jpg") no-repeat;
+}
+@keyframes works3Move {
+  0% {
+    transform: translateX(0px) rotateY(0deg);
+  }
+  49% {
+    transform: translateX(-490px) rotateY(0deg);
+  }
+  50% {
+    transform: translateX(-500px) rotateY(180deg);
+  }
+  100% {
+    transform: translateX(0px) rotateY(180deg);
+  }
 }
