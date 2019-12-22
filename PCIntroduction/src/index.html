@@ -57,7 +57,28 @@
         <div id="content">
            <ul class="list">
                <li class="home">
-                   <section>Home</section>
+                   <section>
+                       <ul class="homeContent">
+                           <li class="commonTitle active leftShow">
+                               <div class="item">one layer</div>
+                           </li>
+                           <li class="commonTitle rightHide">
+                               <div class="item">two layer</div>
+                           </li>
+                           <li class="commonTitle">
+                               <div class="item">three layer</div>
+                           </li>
+                           <li class="commonTitle">
+                               <div class="item">four layer</div>
+                           </li>
+                       </ul>
+                       <ul class="homeCircle">
+                           <li class="active"></li>
+                           <li></li>
+                           <li></li>
+                           <li></li>
+                       </ul>
+                   </section>
                </li>
                <li class="course">
                    <section>
@@ -203,6 +224,9 @@
         var head=document.querySelector("#head");
         var contentLiNodes=document.querySelectorAll("#content .list >li");
         var listNodes=document.querySelector("#content .list");
+        var homeContentNodes=document.querySelectorAll("#wrap #content .list .home .homeContent > li");
+        var homeCircleNodes=document.querySelectorAll("#wrap #content .list .home .homeCircle li");
+        var homeNodes=document.querySelector("#wrap #content .list .home");
         var now=0;
         window.onresize=function(){
             contentBind();
@@ -211,6 +235,85 @@
         };
         var timer=0;
 
+        var oldIndex=0;
+        var timer3D="0";
+        var autoIndex=0;
+        home3D();
+        function home3D() {
+            for(var i=0;i<homeCircleNodes.length;i++){
+                homeCircleNodes[i].index=i;
+                homeCircleNodes[i].onclick=function () {
+                    clearInterval(timer3D);
+                    for(var i=0;i<homeCircleNodes.length;i++){
+                        homeCircleNodes[i].classList.remove("active");
+                    }
+                    this.classList.add("active");
+                    //从左往右  当前索引大于上一次索引  rightShow
+                    if(this.index>oldIndex){
+                        homeContentNodes[this.index].classList.add("rightShow");
+                        homeContentNodes[this.index].classList.remove("rightHide");
+                        homeContentNodes[this.index].classList.remove("leftShow");
+                        homeContentNodes[this.index].classList.remove("leftHide");
+
+                        homeContentNodes[oldIndex].classList.remove("rightShow");
+                        homeContentNodes[oldIndex].classList.remove("rightHide");
+                        homeContentNodes[oldIndex].classList.remove("leftShow");
+                        homeContentNodes[oldIndex].classList.add("leftHide");
+                    }
+                    //从右往左  当前索引小于上一次索引 leftShow
+                    if(this.index<oldIndex){
+                        homeContentNodes[this.index].classList.add("leftShow");
+                        homeContentNodes[this.index].classList.remove("rightHide");
+                        homeContentNodes[this.index].classList.remove("rightShow");
+                        homeContentNodes[this.index].classList.remove("leftHide");
+
+                        homeContentNodes[oldIndex].classList.remove("rightShow");
+                        homeContentNodes[oldIndex].classList.remove("leftHide");
+                        homeContentNodes[oldIndex].classList.remove("leftShow");
+                        homeContentNodes[oldIndex].classList.add("rightHide");
+                    }
+                    oldIndex=this.index;
+                    //手动轮播  ---> 自动轮播的同步问题！！
+                    //手动点完是需要自动轮播的，自动轮播从哪个面开始播？--->手动点的这个面开始自动轮播
+                    //手动轮播的逻辑必须药告诉自动轮播 我刚刚点了哪一个面
+                    autoIndex=this.index;
+                    //move3D();
+                }
+            }
+        }
+        //自动轮播
+        move3D();
+        function move3D() {
+            clearInterval(timer3D);
+            timer3D=setInterval(function () {
+                autoIndex++;
+                if(autoIndex===homeContentNodes.length){
+                    autoIndex=0;
+                }
+                for(var i=0;i<homeCircleNodes.length;i++){
+                    homeCircleNodes[i].classList.remove("active");
+                }
+                homeCircleNodes[autoIndex].classList.add("active");
+                //选择自右向左播放
+                homeContentNodes[autoIndex].classList.add("rightShow");
+                homeContentNodes[autoIndex].classList.remove("rightHide");
+                homeContentNodes[autoIndex].classList.remove("leftShow");
+                homeContentNodes[autoIndex].classList.remove("leftHide");
+
+                homeContentNodes[oldIndex].classList.remove("rightShow");
+                homeContentNodes[oldIndex].classList.remove("rightHide");
+                homeContentNodes[oldIndex].classList.remove("leftShow");
+                homeContentNodes[oldIndex].classList.add("leftHide");
+                oldIndex=autoIndex;
+            },2000)
+        }
+        homeNodes.onmouseenter=function(){
+            clearInterval(timer3D);
+        };
+
+        homeNodes.onmouseleave=function() {
+            move3D();
+        };
         //滚轮滑动
         if(content.addEventListener){
             content.addEventListener("DOMMouseScroll",function (ev) {
@@ -272,7 +375,7 @@
                }
            }
        }
-        move(1);
+        move(0);
        function move(index) {
             for(var i=0;i<liUpNodes.length;i++){
                 liUpNodes[i].style.width="";

@@ -259,6 +259,77 @@ a {
 }
 #wrap #content .list .home {
   background: url("../img/bg1.jpg") no-repeat;
+  height: 100%;
+}
+#wrap #content .list .home .homeContent {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  height: 100%;
+}
+#wrap #content .list .home .homeContent > li {
+  visibility: hidden;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 0 4px rgba(25, 25, 25, 0.8);
+  cursor: pointer;
+}
+#wrap #content .list .home .homeContent > li > .item {
+  text-align: center;
+  margin-top: 200px;
+}
+#wrap #content .list .home .homeContent li.active {
+  visibility: visible;
+}
+#wrap #content .list .home .homeContent li.leftShow {
+  visibility: visible;
+  animation: 1s leftShow 1 linear;
+}
+#wrap #content .list .home .homeContent li.rightHide {
+  visibility: hidden;
+  animation: 1s rightHide 1 linear;
+}
+#wrap #content .list .home .homeContent li.leftHide {
+  visibility: hidden;
+  animation: 1s leftHide 1 linear;
+}
+#wrap #content .list .home .homeContent li.rightShow {
+  visibility: visible;
+  animation: 1s rightShow 1 linear;
+}
+#wrap #content .list .home .homeContent li:nth-child(1) {
+  background: #dc6c5f;
+}
+#wrap #content .list .home .homeContent li:nth-child(2) {
+  background: #95dc84;
+}
+#wrap #content .list .home .homeContent li:nth-child(3) {
+  background: #64b9d2;
+}
+#wrap #content .list .home .homeContent li:nth-child(4) {
+  background: #000000;
+}
+#wrap #content .list .home .homeCircle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+#wrap #content .list .home .homeCircle li {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  color: white;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+#wrap #content .list .home .homeCircle li.active {
+  background: white;
+  cursor: default;
 }
 #wrap #content .list .course {
   background: url("../img/bg2.jpg") no-repeat;
@@ -416,5 +487,47 @@ a {
   }
   100% {
     transform: translateX(0px) rotateY(180deg);
+  }
+}
+/*从左往右 leftHide  rightShow*/
+@keyframes leftHide {
+  0% {
+    visibility: visible;
+  }
+  50% {
+    transform: translateX(-40%) rotateY(30deg) scale(0.8);
+  }
+  100% {
+    transform: translateZ(-200px);
+  }
+}
+@keyframes rightShow {
+  0% {
+    visibility: hidden;
+    transform: translateZ(-200px);
+  }
+  50% {
+    transform: translateX(40%) rotateY(-30deg) scale(0.8);
+  }
+}
+/*从右往左 leftShow  rightHide*/
+@keyframes leftShow {
+  0% {
+    visibility: hidden;
+    transform: translateZ(-200px);
+  }
+  50% {
+    transform: translateX(-40%) rotateY(30deg) scale(0.8);
+  }
+}
+@keyframes rightHide {
+  0% {
+    visibility: visible;
+  }
+  50% {
+    transform: translateX(40%) rotateY(-30deg) scale(0.8);
+  }
+  100% {
+    transform: translateZ(-200px);
   }
 }
