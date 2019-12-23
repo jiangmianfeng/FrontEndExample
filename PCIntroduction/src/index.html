@@ -203,7 +203,31 @@
                    </section>
                </li>
                <li class="about">
-                   <section>About</section>
+                   <section>
+                       <div class="aboutTitle commonTitle">
+                           <span>DIE</span><br/>
+                           <span>SPEZIELLE</span><br/>
+                           <span>VIELFALT</span><br/>
+                       </div>
+                       <div class="aboutFooter commonText">
+                           <p>
+                               Der bunte Medienmix ist die Faszination die uns antreibt und das, was man an uns schätzt. Von A bis Z und von vorne bis hinten nehmen wir Ihr Projekt unter unsere Fittiche und lassen es zu etwas Großartigem heranwachsen.
+                           </p>
+                       </div>
+                       <div class="aboutContent">
+                           <div class="item aboutItemTop">
+                                <span></span>
+                                <ul data-src="../img/about1.jpg"></ul>
+                           </div>
+                           <div class="item aboutItemBottom">
+                                <span></span>
+                               <ul data-src="../img/about3.jpg"></ul>
+                           </div>
+                       </div>
+                       <div class="aboutBackground">
+
+                       </div>
+                   </section>
                </li>
                <li class="team">
                    <section>Team</section>
@@ -227,6 +251,7 @@
         var homeContentNodes=document.querySelectorAll("#wrap #content .list .home .homeContent > li");
         var homeCircleNodes=document.querySelectorAll("#wrap #content .list .home .homeCircle li");
         var homeNodes=document.querySelector("#wrap #content .list .home");
+        var aboutUlNodes=document.querySelectorAll("#wrap #content .list .about .aboutContent .item > ul");
         var now=0;
         window.onresize=function(){
             contentBind();
@@ -234,10 +259,68 @@
             arrow.style.left=liNodes[now].offsetLeft+liNodes[now].offsetWidth/2-arrow.offsetWidth/2+"px";
         };
         var timer=0;
-
         var oldIndex=0;
         var timer3D="0";
         var autoIndex=0;
+        //第四屏图片炸裂
+        picBoom();
+        function picBoom() {
+            for(var i=0;i<aboutUlNodes.length;i++){
+                change(aboutUlNodes[i]);
+            }
+            function change(ul) {
+                var src=ul.dataset.src;
+                var w=ul.offsetWidth/2;
+                var h=ul.offsetHeight/2;
+                for(var i=0;i<4;i++){
+                    var liNodes=document.createElement("li");
+                    liNodes.style.width=w+"px";
+                    liNodes.style.height=h+"px";
+                    var imgNode=document.createElement("img");
+                    imgNode.src=src;
+                    /*
+						1. left:0    top:0
+						2. left:-w   top:0
+						3. left:0    top:-h
+						4. left:-w   top:-h
+					*/
+                    imgNode.style.left=-(i%2)*w+"px";
+                    imgNode.style.top=-Math.floor(i/2)*h+"px";
+
+                    liNodes.appendChild(imgNode);
+                    ul.appendChild(liNodes);
+                }
+                ul.onmouseenter=function () {
+//                    /*
+//							1. left:0    top:0
+//							2. left:-w   top:0
+//							3. left:0    top:-h
+//							4. left:-w   top:-h
+//						*/
+//                    /*
+//                        1. left:0    top:h
+//                        2. left:-2w   top:0
+//                        3. left:w    top:-h
+//                        4. left:-w   top:-2h
+//
+//                        var arrLeft=[0,-2,1,-1];
+//                        var arrTop=[1,0,-1,-2];
+//                    */
+                    var imgNodes=this.querySelectorAll("li>img");
+                    imgNodes[0].style.top=h+"px";
+                    imgNodes[1].style.left=-2*w+"px";
+                    imgNodes[2].style.left=w+"px";
+                    imgNodes[3].style.top=-2*h+"px";
+               };
+               ul.onmouseleave=function () {
+                   var imgNodes=this.querySelectorAll("li>img");
+                   imgNodes[0].style.top=0+"px";
+                   imgNodes[1].style.left=-w+"px";
+                   imgNodes[2].style.left=0+"px";
+                   imgNodes[3].style.top=-h+"px";
+               }
+            }
+        }
         home3D();
         function home3D() {
             for(var i=0;i<homeCircleNodes.length;i++){
@@ -310,7 +393,6 @@
         homeNodes.onmouseenter=function(){
             clearInterval(timer3D);
         };
-
         homeNodes.onmouseleave=function() {
             move3D();
         };
@@ -375,7 +457,7 @@
                }
            }
        }
-        move(0);
+        move(3);
        function move(index) {
             for(var i=0;i<liUpNodes.length;i++){
                 liUpNodes[i].style.width="";

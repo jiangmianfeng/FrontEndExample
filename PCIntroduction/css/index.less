@@ -326,6 +326,74 @@ a{
       }
       .about{
         background: url("../img/bg4.jpg") no-repeat;
+        .aboutTitle{
+          margin: 50px 0 100px 50px;
+        }
+        .aboutFooter{
+          width: 400px;
+          margin-left: 50px;
+        }
+        .aboutContent{
+          .item{
+            border: 5px solid rgba(255,255,255,0.5);
+            border-radius:5px;
+            width: 260px;
+            height: 200px;
+            position: absolute;
+            overflow: hidden;
+            ul{
+              li{
+                position: relative;
+                float: left;
+                overflow: hidden;
+              }
+              img{
+                position: absolute;
+                transition: 1s top,1s left;
+              }
+            }
+
+            span,ul{
+              position: absolute;
+              top:0;
+              right: 0;
+              left: 0;
+              bottom: 0;
+              z-index: 2;
+            }
+          }
+          .item:hover{
+            span{
+              transform: scale(1);
+            }
+          }
+          .aboutItemTop{
+            left:750px;
+            top:50px;
+            span{
+              background: url("../img/about2.jpg") no-repeat;
+              transform: scale(1.5);
+              transition: 1s transform;
+            }
+          }
+          .aboutItemBottom{
+            left:600px;
+            top:290px;
+            span{
+              background: url("../img/about4.jpg") no-repeat;
+              transform: scale(1.5);
+              transition: 1s transform;
+            }
+          }
+        }
+        .aboutBackground{
+          width: 357px;
+          height: 998px;
+          background: url("../img/greenLine.png") no-repeat;
+          position: absolute;
+          top:-100px;
+          left: 50%;
+        }
       }
       .team{
         background: url("../img/bg5.jpg") no-repeat;

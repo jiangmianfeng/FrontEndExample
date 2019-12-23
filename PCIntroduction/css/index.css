@@ -472,6 +472,68 @@ a {
 #wrap #content .list .about {
   background: url("../img/bg4.jpg") no-repeat;
 }
+#wrap #content .list .about .aboutTitle {
+  margin: 50px 0 100px 50px;
+}
+#wrap #content .list .about .aboutFooter {
+  width: 400px;
+  margin-left: 50px;
+}
+#wrap #content .list .about .aboutContent .item {
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  width: 260px;
+  height: 200px;
+  position: absolute;
+  overflow: hidden;
+}
+#wrap #content .list .about .aboutContent .item ul li {
+  position: relative;
+  float: left;
+  overflow: hidden;
+}
+#wrap #content .list .about .aboutContent .item ul img {
+  position: absolute;
+  transition: 1s top,1s left;
+}
+#wrap #content .list .about .aboutContent .item span,
+#wrap #content .list .about .aboutContent .item ul {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+#wrap #content .list .about .aboutContent .item:hover span {
+  transform: scale(1);
+}
+#wrap #content .list .about .aboutContent .aboutItemTop {
+  left: 750px;
+  top: 50px;
+}
+#wrap #content .list .about .aboutContent .aboutItemTop span {
+  background: url("../img/about2.jpg") no-repeat;
+  transform: scale(1.5);
+  transition: 1s transform;
+}
+#wrap #content .list .about .aboutContent .aboutItemBottom {
+  left: 600px;
+  top: 290px;
+}
+#wrap #content .list .about .aboutContent .aboutItemBottom span {
+  background: url("../img/about4.jpg") no-repeat;
+  transform: scale(1.5);
+  transition: 1s transform;
+}
+#wrap #content .list .about .aboutBackground {
+  width: 357px;
+  height: 998px;
+  background: url("../img/greenLine.png") no-repeat;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+}
 #wrap #content .list .team {
   background: url("../img/bg5.jpg") no-repeat;
 }
