@@ -7,11 +7,19 @@
 </head>
 <body>
 <section id="wrap">
+    <div id="mask">
+        <div class="up"></div>
+        <div class="down"></div>
+        <span class="line"></span>
+    </div>
     <header id="head">
         <div class="headMain">
             <h1 class="logo">
                 <img src="../img/logo.png" alt="logo">
             </h1>
+            <div class="music">
+                <audio src="../img/audio.mp3" loop  autoplay ></audio>
+            </div>
             <nav class="nav">
                 <ul class="list clearFix">
                     <li>
@@ -152,6 +160,9 @@
                                </div>
                            </div>
                        </div>
+                       <div class="plane1"></div>
+                       <div class="plane2"></div>
+                       <div class="plane3"></div>
                    </section>
                </li>
                <li class="works">
@@ -200,6 +211,9 @@
 
                            </div>
                        </div>
+                       <div class="pencel1"></div>
+                       <div class="pencel2"></div>
+                       <div class="pencel3"></div>
                    </section>
                </li>
                <li class="about">
@@ -230,9 +244,39 @@
                    </section>
                </li>
                <li class="team">
-                   <section>Team</section>
+                   <section>
+                       <div class="teamHeader commonTitle">
+                           <span>WIR SIND</span><br/>
+                           <span>VOXELAIR</span><br/>
+                       </div>
+                       <div class="teamText commonText">
+                            <p>Wir sind seit 2002 eine Full-Service-Werbeagentur mit Stammsitz in Heimsheim, zwischen Stuttgart und Karlsruhe.</p>
+                           <p>Über 60 Jahre Erfahrung vereinen das gesamte VoxelAir-Team. Dabei hat jedes Voxel neben professionellem Allroundwissen auch sein ganz spezielles Gebiet, um selbst die individuellsten Kundenwünsche schnell und kompetent umzusetzen.</p>
+                       </div>
+                       <div class="teamBottom">
+                            <ul>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                                <li class="item"></li>
+                            </ul>
+                       </div>
+                   </section>
                </li>
            </ul>
+        </div>
+        <div id="flexDot">
+            <ul>
+                <li class="item"></li>
+                <li class="item"></li>
+                <li class="item"></li>
+                <li class="item"></li>
+                <li class="item"></li>
+            </ul>
         </div>
     </section>
 </section>
@@ -252,6 +296,18 @@
         var homeCircleNodes=document.querySelectorAll("#wrap #content .list .home .homeCircle li");
         var homeNodes=document.querySelector("#wrap #content .list .home");
         var aboutUlNodes=document.querySelectorAll("#wrap #content .list .about .aboutContent .item > ul");
+        var dotNodes=document.querySelectorAll("#wrap #flexDot ul li ");
+        
+        var teamLiNodes=document.querySelectorAll("#wrap #content .list .team .teamBottom ul li");
+        var teamBottom=document.querySelector("#wrap #content .list .team .teamBottom");
+        var music = document.querySelector("#head > .headMain .music");
+        var audio = document.querySelector("#head > .headMain .music audio");
+
+        var mask=document.querySelector("#wrap #mask");
+        var up=document.querySelector("#wrap #mask .up");
+        var down=document.querySelector("#wrap #mask .down");
+        var line=document.querySelector("#wrap #mask .line");
+        var face=document.querySelectorAll("#wrap #mask div");
         var now=0;
         window.onresize=function(){
             contentBind();
@@ -262,6 +318,244 @@
         var oldIndex=0;
         var timer3D="0";
         var autoIndex=0;
+        var preIndex=0;//上一屏
+        loading();
+        function loading() {
+            var arr = ['bg1.jpg','bg2.jpg','bg3.jpg','bg4.jpg','bg5.jpg',
+                'about1.jpg','about2.jpg','about3.jpg','about4.jpg','worksimg1.jpg','worksimg2.jpg',
+                'worksimg3.jpg','worksimg4.jpg','team.png','greenLine.png'];
+            var flag=0;
+            for(var i=0;i<arr.length;i++){
+                var img=new Image();
+                img.src="../img/"+arr[i];
+                img.onload=function () {
+                    flag++;
+                    line.style.width=flag/arr.length*100+"%";
+                }
+            }
+            line.addEventListener("transitionend",function () {
+                if(flag===arr.length){
+                    for(var i=0;i<face.length;i++){
+                        face[i].style.height=0+"px";
+                    }
+                    this.style.display="none"
+                }
+            });
+            face[0].addEventListener("transitionend",function () {
+               mask.remove();
+               audio.play();
+                home3D();
+            });
+        }
+        //音频
+        music.onclick=function(){
+            if(audio.paused){
+                audio.play();
+                music.style.background ="url(../img/musicon.gif)";
+            }else{
+                audio.pause();
+                music.style.background ="url(../img/musicoff.gif)";
+            }
+        };
+        //出入场
+        var arr=[
+            {
+               inAn:function(){
+                   var homeContent=document.querySelector("#wrap #content .list .home .homeContent");
+                   var homeCircle=document.querySelector("#wrap #content .list .home .homeCircle");
+                   homeContent.style.transform="translateY(0px)";
+                   homeCircle.style.transform="translateY(0px)";
+                   homeContent.style.opacity=1;
+                   homeCircle.style.opacity=1;
+               },
+                outAn:function () {
+                    var homeContent=document.querySelector("#wrap #content .list .home .homeContent");
+                    var homeCircle=document.querySelector("#wrap #content .list .home .homeCircle");
+                    homeContent.style.transform="translateY(-400px)";
+                    homeCircle.style.transform="translateY(100px)";
+                    homeContent.style.opacity=0;
+                    homeCircle.style.opacity=0;
+                }
+            },
+            {
+                inAn:function(){
+                    var plane1 = document.querySelector("#content  .course .plane1");
+                    var plane2 = document.querySelector("#content  .course .plane2");
+                    var plane3 = document.querySelector("#content  .course .plane3");
+
+                    plane1.style.transform = "translate(0px,0px)";
+                    plane2.style.transform = "translate(0px,0px)";
+                    plane3.style.transform = "translate(0px,0px)";
+                },
+                outAn:function () {
+                    var plane1 = document.querySelector("#content  .course .plane1");
+                    var plane2 = document.querySelector("#content  .course .plane2");
+                    var plane3 = document.querySelector("#content  .course .plane3");
+
+                    plane1.style.transform = "translate(-200px,-200px)";
+                    plane2.style.transform = "translate(-200px,200px)";
+                    plane3.style.transform = "translate(-200px,-200px)";
+                }
+            },
+            {
+                inAn:function(){
+                    var pencel1 = document.querySelector("#content  .works .pencel1");
+                    var pencel2 = document.querySelector("#content  .works .pencel2");
+                    var pencel3 = document.querySelector("#content  .works .pencel3");
+
+                    pencel1.style.transform = "translateY(0px)";
+                    pencel2.style.transform = "translateY(0px)";
+                    pencel3.style.transform = "translateY(0px)";
+                },
+                outAn:function () {
+                    var pencel1 = document.querySelector("#content  .works .pencel1");
+                    var pencel2 = document.querySelector("#content  .works .pencel2");
+                    var pencel3 = document.querySelector("#content  .works .pencel3");
+
+                    pencel1.style.transform = "translateY(-100px)";
+                    pencel2.style.transform = "translateY(100px)";
+                    pencel3.style.transform = "translateY(100px)";
+                }
+            },
+            {
+                inAn:function(){
+                    var Rect1 = document.querySelector("#content > .list > .about .aboutContent > .aboutItemTop");
+                    var Rect2 = document.querySelector("#content > .list > .about .aboutContent > .aboutItemBottom");
+
+                    Rect1.style.transform = "rotate(0deg)";
+                    Rect2.style.transform = "rotate(0deg)";
+                },
+                outAn:function () {
+                    var Rect1 = document.querySelector("#content > .list > .about .aboutContent > .aboutItemTop");
+                    var Rect2 = document.querySelector("#content > .list > .about .aboutContent > .aboutItemBottom");
+
+                    Rect1.style.transform = "rotate(45deg)";
+                    Rect2.style.transform = "rotate(-45deg)";
+                }
+            },
+            {
+                inAn:function(){
+                    var Rect1 = document.querySelector("#content > .list > .team .teamHeader");
+                    var Rect2 = document.querySelector("#content > .list > .team .teamText");
+
+                    Rect1.style.transform = "translateX(0px)";
+                    Rect2.style.transform = "translateX(0px)";
+                },
+                outAn:function () {
+                    var Rect1 = document.querySelector("#content > .list > .team .teamHeader");
+                    var Rect2 = document.querySelector("#content > .list > .team .teamText");
+
+                    Rect1.style.transform = "translateX(-200px)";
+                    Rect2.style.transform = "translateX(200px)";
+                }
+            }
+        ];
+        for(var i=0;i<arr.length;i++){
+            arr[i]["outAn"]();
+        }
+        setTimeout(function(){
+            arr[0].inAn();
+        },2000);
+//        arr[4].outAn();
+//        setInterval(function () {
+//            arr[4].inAn();
+//        },2000);
+        //第五屏气泡效果
+        bubble();
+        function bubble() {
+            var oc=null;
+            for(var i=0;i<teamLiNodes.length;i++){
+                teamLiNodes[i].onmouseenter=function () {
+                    for(var i=0;i<teamLiNodes.length;i++){
+                        teamLiNodes[i].style.opacity=.2;
+                    }
+                    this.style.opacity=1;
+                    addCanvas();
+                    oc.style.left=this.offsetLeft+"px";
+                };
+            }
+            function addCanvas() {
+                if(!oc){
+                    oc=document.createElement("canvas");
+                    oc.width=teamLiNodes[0].offsetWidth;
+                    oc.height=teamLiNodes[0].offsetHeight*2/3;
+                    teamBottom.onmouseenter =function () {
+                        for(var i=0;i<teamLiNodes.length;i++){
+                            teamLiNodes[i].style.opacity=1;
+                        }
+                        removeCanvas();
+                    };
+                    teamBottom.appendChild(oc);
+                    QiPao();
+                }
+            }
+            function QiPao(){
+                if(oc.getContext){
+                    var ctx = oc.getContext("2d");
+                    var arr=[];
+                    //将数组中的圆绘制到画布上
+                    time1=setInterval(function(){
+                        ctx.clearRect(0,0,oc.width,oc.height);
+                        //动画
+                        for(var i=0;i<arr.length;i++){
+                            arr[i].deg+=10;
+                            arr[i].x = arr[i].startX +  Math.sin( arr[i].deg*Math.PI/180 )*arr[i].step*2;
+                            arr[i].y = arr[i].startY - (arr[i].deg*Math.PI/180)*arr[i].step ;
+
+                            if(arr[i].y <=50){
+                                arr.splice(i,1)
+                            }
+                        }
+                        //绘制
+                        for(var i=0;i<arr.length;i++){
+                            ctx.save();
+                            ctx.fillStyle="rgba("+arr[i].red+","+arr[i].green+","+arr[i].blue+","+arr[i].alp+")";
+                            ctx.beginPath();
+                            ctx.arc(arr[i].x,arr[i].y,arr[i].r,0,2*Math.PI);
+                            ctx.fill();
+                            ctx.restore();
+                        }
+                    },1000/60);
+
+                    //往arr中注入随机圆的信息
+                    time2=setInterval(function(){
+                        var r =Math.random()*6+2;
+                        var x = Math.random()*oc.width;
+                        var y = oc.height - r;
+                        var red =   Math.round(Math.random()*255);
+                        var green = Math.round(Math.random()*255);
+                        var blue =  Math.round(Math.random()*255);
+                        var alp = 1;
+
+
+                        var deg =0;
+                        var startX = x;
+                        var startY = y;
+                        //曲线的运动形式
+                        var step =Math.random()*20+10;
+                        arr.push({
+                            x:x,
+                            y:y,
+                            r:r,
+                            red:red,
+                            green:green,
+                            blue:blue,
+                            alp:alp,
+                            deg:deg,
+                            startX:startX,
+                            startY:startY,
+                            step:step
+                        })
+                    },50)
+                }
+            }
+            function removeCanvas(){
+                oc.remove();
+                oc=null;
+                clearInterval(time1);
+                clearInterval(time2);
+            }
+        }
         //第四屏图片炸裂
         picBoom();
         function picBoom() {
@@ -321,7 +615,7 @@
                }
             }
         }
-        home3D();
+        //home3D();
         function home3D() {
             for(var i=0;i<homeCircleNodes.length;i++){
                 homeCircleNodes[i].index=i;
@@ -421,6 +715,7 @@
             }else if(ev.detail){
                 dir=ev.detail<0?"up":"down";
             }
+            preIndex=now;
             switch(dir){
                 case"up":
                     if(now>0){
@@ -452,12 +747,21 @@
            for(var i=0;i<liNodes.length;i++){
                liNodes[i].index=i;
                liNodes[i].onclick=function () {
+                   preIndex=now;
                   move(this.index);
                    now = this.index;
                }
            }
+           for(var i=0;i<dotNodes.length;i++){
+               dotNodes[i].index=i;
+               dotNodes[i].onclick=function () {
+                   preIndex=now;
+                   move(this.index);
+                   now=this.index;
+               }
+           }
        }
-        move(3);
+        //move(0);
        function move(index) {
             for(var i=0;i<liUpNodes.length;i++){
                 liUpNodes[i].style.width="";
@@ -465,6 +769,19 @@
             arrow.style.left=liNodes[index].offsetLeft+liNodes[index].offsetWidth/2-arrow.offsetWidth/2+"px";
             liUpNodes[index].style.width="100%";
             listNodes.style.top=-index*(document.documentElement.clientHeight-head.offsetHeight)+"px";
+
+            for(var i=0;i<dotNodes.length;i++){
+                dotNodes[i].classList.remove("active");
+            }
+            dotNodes[index].classList.add("active");
+
+           //出入场
+           if(arr[index]&&typeof arr[index]["inAn"] === "function"){
+               arr[index]["inAn"]();
+           }
+           if(arr[preIndex]&&typeof arr[preIndex]["inAn"] === "function"){
+               arr[preIndex]["outAn"]();
+           }
         }
     }
 </script>

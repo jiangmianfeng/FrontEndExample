@@ -35,7 +35,8 @@ a{
 //  height: 100%;
 //}
 #wrap{
-  background: gray;
+  //background: gray;
+  height: 100%;
   #head{
     background: white !important;
     width: 100%;
@@ -47,6 +48,13 @@ a{
       .logo{
         float:left;
         margin-top: 30px;
+      }
+      .music{
+        width: 14px;
+        height: 14px;
+        background: url(../img/musicon.gif);
+        float: left;
+        margin: 50px 0 0 5px;
       }
       .nav{
         margin-top: 50px;
@@ -82,24 +90,54 @@ a{
       }
     }
   }
+  #mask{
+    height: 100%;
+    width: 100%;
+    position: absolute;//相对定位 不脱离文档流
+    z-index: 100;
+    .up{
+      width: 100%;
+      height: 50%;
+      background: deepskyblue;
+      transition: 1s height;
+    }
+    .down{
+      width: 100%;
+      height: 50%;
+      background: deepskyblue;
+      transition: 1s height;
+      position: absolute;
+      bottom: 0;
+    }
+    .line{
+      position: absolute;
+      width: 0;
+      height: 4px;
+      background: white;
+      top:50%;
+      margin-top: -2px;
+      transition: 3s width;
+      z-index: 101;
+    }
+  }
   #content{
     overflow:hidden;
     width: 100%;
-    li{
-      position: relative;
-      background-position: 50% 50% !important;//居中布局平铺
-      >section{
-        height: 520px;
-        width: 1100px;
-        position: absolute;
-        margin: auto;
-        left: 0;
-        right: 0;
-        top:0;
-        bottom: 0;
-      }
-    }
     .list{
+      >li{
+        position: relative;
+        background-position: 50% 50% !important;//居中布局平铺
+        >section{
+          height: 520px;
+          width: 1100px;
+          position: absolute;
+          margin: auto;
+          left: 0;
+          right: 0;
+          top:0;
+          bottom: 0;
+        }
+      }
       position:relative;
       width: 100%;
       left: 0;
@@ -112,6 +150,7 @@ a{
           perspective: 1000px;
           transform-style: preserve-3d;
           height: 100%;
+          transition: 1s transform;
           //overflow: hidden;
           >li{
             visibility: hidden;
@@ -166,6 +205,7 @@ a{
           right: 0;
           bottom: 0;
           text-align: center;
+          transition: 1s transform;
           li{
             display: inline-block;
             width: 20px;
@@ -184,17 +224,50 @@ a{
       }
       .course{
         background: url("../img/bg2.jpg") no-repeat;
+        overflow: hidden;
+        .plane1{
+          width:359px;
+          height:283px;
+          background:url(../img/plane1.png) no-repeat;
+          position:absolute;
+          left:300px;
+          top:-100px;
+          transition:1s;
+        }
+        .plane2{
+          width:309px;
+          height:249px;
+          background:url(../img/plane2.png) no-repeat;
+          position:absolute;
+          left:-100px;
+          top:200px;
+          transition:1s
+        }
+        .plane3{
+          width:230px;
+          height:182px;
+          background:url(../img/plane3.png) no-repeat;
+          position:absolute;
+          left:300px;
+          top:400px;
+          transition:1s
+        }
         .two{
           .title{
             margin: 50px;
+            position: relative;
+            z-index: 2;
           }
           .text{
             width:400px;
             margin-left: 50px;
+            position: absolute;
+            z-index: 2;
           }
           .bottomRight{
             width:480px;
             position:absolute;
+            z-index:2;
             right: 50px;
             top:70px;
             .line{
@@ -264,6 +337,8 @@ a{
           height: 100%;
           .title{
             margin: 50px 0 100px 50px;
+            //position: absolute;
+            z-index: 2;
           }
           .bottomDown{
             margin-left: 50px;
@@ -285,6 +360,7 @@ a{
               height: 133px;
               position: relative;
               overflow: hidden;
+              z-index: 2;
               >img{
                transition: 1s transform;
               }
@@ -321,7 +397,34 @@ a{
             width: 167px;
             height: 191px;
             animation: works3Move 4s linear infinite;
+            z-index: 2;
           }
+        }
+        .pencel1{
+          width:180px;
+          height:97px;
+          background:url("../img/pencel1.png") no-repeat;
+          position:absolute;
+          transition:1s;
+          left:500px;
+          top:0;
+        }
+        .pencel2{
+          width:268px; height:38px;
+          background:url(../img/pencel2.png) no-repeat;
+          position:absolute;
+          transition:1s;
+          left:300px;
+          top:250px;
+        }
+        .pencel3{
+          width:441px;
+          height:231px;
+          background:url(../img/pencel3.png) no-repeat;
+          position:absolute;
+          transition:1s;
+          left:650px;
+          top:300px;
         }
       }
       .about{
@@ -341,6 +444,8 @@ a{
             height: 200px;
             position: absolute;
             overflow: hidden;
+            z-index: 2;
+            transition: 1s transform;
             ul{
               li{
                 position: relative;
@@ -397,8 +502,85 @@ a{
       }
       .team{
         background: url("../img/bg5.jpg") no-repeat;
-      }
+        .teamHeader{
+          float: left;
+          width: 400px;
+          margin: 50px;
+          transition: 1s transform;
+        }
+        .teamText{
+          float: right;
+          width: 400px;
+          margin: 50px;
+          transition: 1s transform;
+        }
+        .teamBottom{
+          width: 944px;
+          height: 448px;
+          position: absolute;
+          left: 50%;
+          margin-left: -472px;
+          margin-top: 240px;
+          ul{
+            height: 100%;
+            .item{
+              float: left;
+              background: url("../img/team.png") no-repeat;
+              height: 100%;
+              width: 118px;
+            }
+            .item:nth-child(1){
+              background-position: 0 0;
+            }
+            .item:nth-child(2){
+              background-position: -118px 0;
+            }
+            .item:nth-child(3){
+              background-position: -236px 0;
+            }
+            .item:nth-child(4){
+              background-position: -354px 0;
+            }
+            .item:nth-child(5){
+              background-position: -472px 0;
+            }
+            .item:nth-child(6){
+              background-position: -590px 0;
+            }
+            .item:nth-child(7){
+              background-position: -708px 0;
+            }
+            .item:nth-child(8){
+              background-position: -826px 0;
+            }
 
+          }
+          canvas{
+            position: absolute;
+            top:0;
+          }
+        }
+      }
+    }
+  }
+  #flexDot{
+    position: fixed;
+    right: 0;
+    top: 50%;
+    ul{
+      .active{
+        background: white;
+      }
+      .item{
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-top: 10px;
+        border: 5px solid black;
+      }
+      .item:hover{
+        cursor:pointer;
+      }
     }
   }
 }
